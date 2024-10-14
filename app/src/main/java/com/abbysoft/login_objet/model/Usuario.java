@@ -8,18 +8,21 @@ public class Usuario implements Serializable {
     private String nombre;
     private String mail;
     private String password;
+    private String avatarUri;
 
-    public Usuario(long dni) {
-        this.dni = dni;
+    public Usuario() {
     }
 
-    public Usuario(long dni, String apellido, String nombre, String mail, String password) {
+    public Usuario(long dni, String apellido, String nombre, String mail, String password, String avatarUri) {
         this.dni = dni;
         this.apellido = apellido;
         this.nombre = nombre;
         this.mail = mail;
         this.password = password;
+        this.avatarUri = avatarUri;
     }
+
+    // Getters y Setters para todos los campos
 
     public long getDni() {
         return dni;
@@ -61,14 +64,11 @@ public class Usuario implements Serializable {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "dni=" + dni +
-                ", apellido='" + apellido + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", mail='" + mail + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+    public String getAvatarUri() {
+        return avatarUri;
+    }
+
+    public void setAvatarUri(String avatarUri) {
+        this.avatarUri = avatarUri;
     }
 }

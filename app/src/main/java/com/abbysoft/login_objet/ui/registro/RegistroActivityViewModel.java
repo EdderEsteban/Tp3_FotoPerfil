@@ -15,7 +15,6 @@ import com.abbysoft.login_objet.request.ApiClient;
 import com.abbysoft.login_objet.ui.login.MainActivity;
 
 public class RegistroActivityViewModel extends AndroidViewModel {
-
     private Context context;
     private MutableLiveData<Usuario> mUsuario;
 
@@ -24,30 +23,28 @@ public class RegistroActivityViewModel extends AndroidViewModel {
         context = application.getApplicationContext();
     }
 
-    public LiveData<Usuario> mUsuario(){
-        if(mUsuario == null){
+    public LiveData<Usuario> mUsuario() {
+        if (mUsuario == null) {
             mUsuario = new MutableLiveData<>();
         }
         return mUsuario;
     }
 
-
-    // Crear un nuevo usuario y guardarlo en SharedPreferences
-    public void crear(long dni, String apellido, String nombre, String mail, String password) {
-        Usuario usuario = new Usuario(dni, apellido, nombre, mail, password);
-        ApiClient.guardar(context, usuario); // Guardar el usuario
+    // Método para guardar el usuario con avatar
+    public void crear(long dni, String apellido, String nombre, String mail, String password, String avatarUri) {
+        Usuario usuario = new Usuario(dni, apellido, nombre, mail, password, avatarUri);
+        ApiClient.guardar(context, usuario);  // Guardar el usuario
         Toast.makeText(context, "Usuario registrado", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(context, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
-    // Obtener el usuario guardado
     public void getUsuario(String origen) {
-        if (origen.equals("login")){
+        if (origen.equals("login")) {
             Usuario usuario = ApiClient.leer(context);
-            if (usuario != null && !usuario.getMail().equals("-1")) {
-                mUsuario.setValue(usuario); // Si hay un usuario registrado, lo mostramos
+            if (usuario != null) {
+                mUsuario.setValue(usuario);  // Mostrar el usuario registrado
             }
         }
     }
